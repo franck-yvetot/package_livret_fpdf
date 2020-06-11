@@ -1,0 +1,21 @@
+﻿<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="livret_fpdf">
+
+<application
+	name		= "offer_pdf" 
+	path		= "/livret_fpdf/"
+	protected	= "user" 
+	permissions = "default"
+	cache		= "no" 
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "offer_pdf"
+	table		= "livret_pdf"
+	base_data	= "livret_pdf"
+	string_base = "pdf"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+<include_once file="/all.nxl" />
+
+</nxl>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _livret_pdf SET _oid=".$record->getFieldValue("oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL")." WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

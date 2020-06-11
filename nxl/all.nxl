@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="fpdf">
+
+<!-- include data model -->
+<include_once file="/data_model/all.nxl" />
+
+<!-- include strings -->
+<include_once file="/strings/all.nxl" />
+
+<!-- include applications -->
+<include_once file="/pdf.nxl" />
+
+<include_once file="/offer_pdf.nxl" />
+</nxl>

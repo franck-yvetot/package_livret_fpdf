@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="fpdf">
+
+<!-- include strings -->
+<include_once file="/strings/pdf.strings.nxl" />
+
+<include_once file="/strings/offer_pdf.strings.nxl" />
+</nxl>

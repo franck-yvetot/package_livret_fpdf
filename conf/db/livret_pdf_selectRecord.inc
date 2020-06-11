@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name FROM _livret_pdf"; ?>
