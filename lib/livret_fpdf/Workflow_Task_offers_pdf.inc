@@ -1031,7 +1031,7 @@ class LIVRET_PDF extends FPDI
 		}
 		$poleName = $this->summaryInfos["pole"];
 		$summaryText=$summaryText.utf8_decode("{$poleName} du premier groupe français de soins et services à la santé, Ramsay Santé.");
-		$this->MultiCell(0,5,$summaryText,"",L,'');
+		$this->MultiCell(0,5,$summaryText,"",'C','');
 		$this->ln(1);
 		$this->SetFont('HelveticaNeueLTStd-Md','',12);
 		$this->MultiCell(0,5,utf8_decode("Son activité repose sur plusieurs spécialités fortes :"),"",L,'');
@@ -1060,7 +1060,7 @@ class LIVRET_PDF extends FPDI
 			$this->ln(1);
 			$this->setMyColText();
 			$this->SetFont($this->page_font,'',11);
-			$this->MultiCell(0,5,utf8_decode("Et aussi : ".$and_also),"",L,'');
+			$this->MultiCell(0,5,utf8_decode("Et aussi : ".$and_also),"",'C','');
 			$this->ln(1);
 			$currentPosition += 20;
 		}
