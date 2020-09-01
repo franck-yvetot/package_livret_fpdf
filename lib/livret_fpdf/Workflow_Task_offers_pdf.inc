@@ -168,7 +168,9 @@ class Workflow_Task_offers_pdf extends Workflow_Task
 				break;
 			}
 		}
+
 		$pole_data=$pole->{'data'};
+
 		$pole_map_file=$pole_data->{'mapFile'};
 		$pole_info["map_file"]=$pole_map_file;
 		$pole_data=$pole_data->{'pole'};
@@ -178,6 +180,11 @@ class Workflow_Task_offers_pdf extends Workflow_Task
 		$pole_description=html_entity_decode($pole_description, ENT_QUOTES | ENT_HTML5);
 		$pole_description=iconv('UTF-8', 'windows-1252', stripslashes($pole_description));
 		
+		if($pole_data->offsetY)
+			$pole_info["offsetY"] = 0+$pole_data->offsetY;
+		else
+			$pole_info["offsetY"] = 0;
+        
 		$pole_info["description"]=$pole_description;
 		$pole_parts=$pole->{'parts'};
 		$pole_sites=$pole_parts->{'sites'};
@@ -736,8 +743,11 @@ class LIVRET_PDF extends FPDI
 		$this->setElementFont('title_font','HelveticaNeueLTStd-Md');
 		$this->setElementFont('subtitle_font','HelveticaNeueLTStd-Th');
 		$this->setElementFont('page_font','HelveticaNeueLTStd-Th');
+		$this->setElementFont('bullet_font','HelveticaNeueLTStd-Md');
 		$this->setElementFont('sectiontitle_font','HelveticaNeueLTStd-Md');
 		$this->setElementFont('subsectiontitle_font','HelveticaNeueLTStd-Md');
+
+		$this->setElementFont('other_font','helveticab');
 
 		$this->SetAutoPageBreak(true,$this->autoPageBreak-$this->marginImp);  //saut de page
 	}
@@ -972,13 +982,13 @@ class LIVRET_PDF extends FPDI
 			}
 
 
-			$this->setY(138);
+			$this->setY(118);
 			$this->SetTextColor();
 			$this->SetFont($this->page_font,'',7);
 			//$this->Cell(10);
 			$text=$establishment." ".$text;
 			$this->MultiCell(0,4,$text,"",C,'');
-			$this->Ln(1);
+			$this->Ln(3);
 			$this->SetFont($this->title_font,'',7);
 			$this->MultiCell(0,4,utf8_decode("A propos de Ramsay Santé "),"",L,'');
 			$this->Ln(1);
@@ -1001,7 +1011,7 @@ class LIVRET_PDF extends FPDI
 			$this->Ln(1);
 			$text="En savoir plus : www.ramsaygds.fr";
 			$this->MultiCell(0,4,$text,"",L,'');
-			$this->displayLogo($cover_info["logo2"],$logo_x = $this->getX(),$logo_y = $this->GetY()-5,15);
+			$this->displayLogo($cover_info["logo2"],$logo_x = $this->getX(),$logo_y = $this->GetY()-5,25);
 		}
 	}
 
@@ -1517,7 +1527,13 @@ class LIVRET_PDF extends FPDI
 		//nombre etablissements et lits
 		$this->setPoleTitle();
 		//$y_pos =76;
+
 		$y_pos =73;
+
+		$offsetY = 0+$this->poleInfos["offsetY"];
+		if($offsetY)
+			$y_pos += $offsetY*10; 
+
 		$x_pos = $this->GetX();
 		$this->SetY($y_pos);
 		$img_pole = NX_DOC_ROOT."/nx/skins/lightsky/images/livret_fpdf/pole_img.jpg";
@@ -1591,6 +1607,7 @@ class LIVRET_PDF extends FPDI
 		$sites = $this->sortOtherSites($otherSites);
 
         $i = 2;
+
 		foreach($sites as $site)
 		{
 			$name=iconv('UTF-8', 'windows-1252', stripslashes($site->name));
@@ -1608,7 +1625,7 @@ class LIVRET_PDF extends FPDI
 					continue;
 				} 
 
-				if($add_new_page && $i == 7){
+				if($add_new_page && ($i == 7 && $offsetY>=0)){
 					$add_new_page=false;
 					$this->AddPage();
 				}
@@ -1937,10 +1954,12 @@ class LIVRET_PDF extends FPDI
 								{
 									if($section->name != "A savoir")
 									{
-										$this->SetFont("arial",'B',8);
+										// remplacement de arial
+										// $this->SetFont("helvetica",'B',8);
 										// $this->SetTextColor(95,0,10,35);
-										$this->setMyColText('GREEN');
 
+										$this->SetFont($this->bullet_font,'',8);
+										$this->setMyColText('GREEN');
 										$this->Cell(2,4,">", 0, 0, 'L', false );
 									}
 
@@ -2608,5 +2627,3 @@ class DOCTOR
 	   return ($a->last_name < $b->last_name) ? -1 : 1;
 	}
 }
-?>
-

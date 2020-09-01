@@ -822,6 +822,7 @@ class LIVRET_PDF extends FPDI
 	function generatePolePDF()
 	{
 		$this->AddPage();
+
 		//data
 		$nb_hp=$this->poleInfos["nb_hp"];
 		$img_hp = NX_DOC_ROOT."/nx/skins/lightsky/images/livret/hp_nb.png";
