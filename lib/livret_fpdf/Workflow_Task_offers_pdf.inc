@@ -938,27 +938,27 @@ class LIVRET_PDF extends FPDI
 			$text="Vous  voulez recevoir des informations ? ";
 			$text=html_entity_decode($text, ENT_QUOTES | ENT_HTML5);
 			$text=iconv('UTF-8', 'windows-1252', stripslashes($text));
-			$this->MultiCell(0,6,$text,"",C,'');
+			$this->MultiCell(0,6,$text,"",'C','');
 			$text="Connaître les événements organisés par les praticiens ? ";
 			$text=iconv('UTF-8', 'windows-1252', stripslashes($text));
-			$this->Cell(0,6,$text,0,1,C);
+			$this->Cell(0,6,$text,0,1,'C');
 			$text="Etre informés des nouveautés au sein de l’établissement? (Spécialités, services, matériel ?...)";
 			$text=iconv('UTF-8', 'windows-1252', stripslashes($text));
-			$this->MultiCell(0,6,$text,"",C,'');
+			$this->MultiCell(0,6,$text,"",'C','');
 
 
 			$this->Ln(25);
 			$text="Laissez-nous votre adresse e-mail sur :";
 			$text=html_entity_decode($text, ENT_QUOTES | ENT_HTML5);
 			$text=iconv('UTF-8', 'windows-1252', stripslashes($text));
-			$this->MultiCell(0,3,$text,"",C,'');
+			$this->MultiCell(0,3,$text,"",'C','');
 			$this->Ln(2);
 			//$this->setTextColorByName("blue_title");
 			$this->SetTextColor(89,23,0,8);
 			$text="http://praticien.ramsaygds.fr/liens";
 			$text=html_entity_decode($text, ENT_QUOTES | ENT_HTML5);
 			$text=iconv('UTF-8', 'windows-1252', stripslashes($text));
-			$this->MultiCell(0,3,$text,"",C,'');
+			$this->MultiCell(0,3,$text,"",'C','');
 
 			$img = NX_DOC_ROOT."/nx/skins/lightsky/images/livret_fpdf/cursor.jpg";
 			$f=fopen($img ,'rb');
@@ -987,10 +987,10 @@ class LIVRET_PDF extends FPDI
 			$this->SetFont($this->page_font,'',7);
 			//$this->Cell(10);
 			$text=$establishment." ".$text;
-			$this->MultiCell(0,4,$text,"",C,'');
+			$this->MultiCell(0,4,$text,"",'C','');
 			$this->Ln(3);
 			$this->SetFont($this->title_font,'',7);
-			$this->MultiCell(0,4,utf8_decode("A propos de Ramsay Santé "),"",L,'');
+			$this->MultiCell(0,4,utf8_decode("A propos de Ramsay Santé "),"",'L','');
 			$this->Ln(1);
 			$this->SetFont($this->page_font,'',7);
 
@@ -1007,10 +1007,10 @@ class LIVRET_PDF extends FPDI
 			}
 
 			$text=iconv('UTF-8', 'windows-1252', stripslashes($text));
-			$this->MultiCell(0,4,$text,"",J,'');
+			$this->MultiCell(0,4,$text,"",'J','');
 			$this->Ln(1);
 			$text="En savoir plus : www.ramsaygds.fr";
-			$this->MultiCell(0,4,$text,"",L,'');
+			$this->MultiCell(0,4,$text,"",'L','');
 			$this->displayLogo($cover_info["logo2"],$logo_x = $this->getX(),$logo_y = $this->GetY()-5,25);
 		}
 	}
@@ -1035,7 +1035,7 @@ class LIVRET_PDF extends FPDI
 		$summaryText=$establishment.utf8_decode(" appartient au pôle ");
 		if($this->GetStringWidth($summaryText)>80 && $this->GetStringWidth($summaryText)<90)
 		{
-			$this->MultiCell(0,5,$summaryText,"",L,'');
+			$this->MultiCell(0,5,$summaryText,"",'L','');
 			$this->ln(1);
 			$summaryText="";
 		}
@@ -1044,7 +1044,7 @@ class LIVRET_PDF extends FPDI
 		$this->MultiCell(0,5,$summaryText,"",'C','');
 		$this->ln(1);
 		$this->SetFont('HelveticaNeueLTStd-Md','',12);
-		$this->MultiCell(0,5,utf8_decode("Son activité repose sur plusieurs spécialités fortes :"),"",L,'');
+		$this->MultiCell(0,5,utf8_decode("Son activité repose sur plusieurs spécialités fortes :"),"",'L','');
 		$this->ln(4);
 
 		if($this->summaryInfos != null)
@@ -2071,7 +2071,7 @@ class LIVRET_PDF extends FPDI
 		$this->subtitle=$offer->subtitle;
 	}
 
-	function AddPage() 
+	function AddPage($orientation = '', $format = '', $rotationOrKeepmargins = false, $tocpage = false) 
 	{
 		//on génère la page en appelant la méthode 
         //parente addPage()
@@ -2090,7 +2090,7 @@ class LIVRET_PDF extends FPDI
 			$pdf_long = $this->h;
 			//$this->SetFillColor(20,7,0,4);
 			$this->SetFillColor(14,5,0,2);
-			$this->Rect(0,0, $pdf_larg, $pdf_long, F);
+			$this->Rect(0,0, $pdf_larg, $pdf_long, 'F');
 		}
 		$this->drawSwallows(true,true,true,true);
     }
