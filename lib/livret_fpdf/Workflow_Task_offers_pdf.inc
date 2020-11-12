@@ -893,7 +893,7 @@ class LIVRET_PDF extends FPDI
 			$y=$cover_info["title_y"];
 			$this->SetY($y);
 			//$this->Cell(0,12,$title,0,0,'C');
-			$this->MultiCell(0,8,$title,0,'C');
+			// $this->MultiCell(0,8,$title,0,'C');
 			$currentY=$this->GetY();
 			$this->Ln(0);
 
